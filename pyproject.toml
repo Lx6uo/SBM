@@ -1,0 +1,19 @@
+[project]
+name = "sbm-super-efficiency"
+version = "0.1.0"
+description = "SBM and super-efficiency models with undesirable outputs for regional efficiency analysis."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+authors = [
+  { name = "SBM Project", email = "example@example.com" }
+]
+dependencies = [
+  "numpy",
+  "pandas",
+  "scipy",
+  "openpyxl",
+]
+
+[tool.uv]
+preview = true
