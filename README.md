@@ -7,7 +7,7 @@
 ## 项目简介（ZH）
 
 本项目实现了含/不含非期望产出的 SBM（Slack-Based Measure）和超效率 SBM 模型，用于评价地区或决策单元（DMU）的绿色发展效率。  
-代码提供 Python 与 R 两种实现形式，并支持从 Excel 表中批量读取投入、期望产出与非期望产出指标。
+代码以 Python 实现为主，并支持从 Excel 表中批量读取投入、期望产出与非期望产出指标。R 版本仅作为历史参考实现，已不再维护。
 
 模型主要参考：
 
@@ -26,7 +26,7 @@
 
 This repository implements standard and super-efficiency SBM (Slack-Based Measure) models,  
 with and without undesirable outputs, to evaluate the “green” efficiency of regions or DMUs.  
-Both Python and R implementations are provided, reading indicators from Excel workbooks for batch computation.
+The Python implementation is the canonical and maintained version; the R script is kept only as a historical reference.
 
 The implementation is based on:
 
@@ -45,12 +45,12 @@ Typical use cases:
 
 - `Code/`
   - `sbm_run.py`  
-    主分析脚本：读取 Excel 数据，构造投入 / 期望产出 / 非期望产出矩阵，  
-    调用 SBM 与超效率 SBM 模型并导出结果。
+    主分析脚本：读取 Excel 数据，构造投入 / 期望产出 / 非期望产出矩阵，调用标准 SBM 与超效率 SBM 模型并导出结果。
+    默认配置为：标准 SBM 使用 VRS/BCC，超效率 SBM 使用 CRS/CCR，与 Tone (2001, 2002) 文献和模块化 Python 实现对齐。
   - `sbm_super_efficiency.py`  
-    Python 版 SBM 与超效率 SBM 核心实现（含非期望产出），接口更模块化，便于二次开发或与其他项目集成。
+    **已弃用**的模块化 Python 实现（含非期望产出），保留用于公式核查和与 R 版本的历史对照；推荐直接使用 `sbm_run.py` 作为主入口。
   - `sbm_super_efficiency.R`  
-    R 版 SBM / 超效率 SBM 参考实现，使用 `lpSolve`、`readxl` 等包。
+    **已弃用**的 R 版 SBM / 超效率 SBM 参考实现，使用 `lpSolve`、`readxl` 等包，仅供历史对照与公式核查。
   - `sbm_mapping.json`  
     预留的字段映射配置文件（当前为空），可用于自定义 Excel 列名与模型变量映射。
 - `InputData/`  
@@ -95,20 +95,14 @@ pip install numpy pandas scipy openpyxl
 python Code/sbm_run.py
 ```
 
-### R（可选）
+### R（已弃用，仅供参考 / Deprecated, Reference Only）
 
-如需使用 R 版本实现，建议安装：
+- 仓库中保留了 `Code/sbm_super_efficiency.R` 作为早期实现和公式对照用的参考脚本。
+- 该 R 版本不再维护，后续工作建议全部基于 Python：
+  - 脚本入口：`Code/sbm_run.py`
+  - 模块化接口：`Code/sbm_super_efficiency.py`
 
-- `readxl`
-- `dplyr`
-- `tibble`
-- `lpSolve`
-
-在 R 中：
-
-```r
-source("Code/sbm_super_efficiency.R")
-```
+若确有需要在 R 中阅读或复现，可参考脚本头部注释，自行配置 `readxl`、`dplyr`、`tibble`、`lpSolve` 等依赖，但建议不要再在 R 版本上做新功能开发。
 
 ---
 
@@ -130,9 +124,10 @@ source("Code/sbm_super_efficiency.R")
   - 对接近有效前沿（效率≈1）的 DMU 计算超效率；
   - 输出带有标准效率与超效率结果的 Excel 文件（保存在 `Result/` 或脚本配置的路径下）。
 
-关键参数（位于脚本顶部）包括：
+关键参数（位于 `main()` 顶部）包括：
 
-- `rts`：规模报酬类型，`0` 为 CRS（CCR），`1` 为 VRS（BCC）；
+- `rts_standard`：标准 SBM 的规模报酬，固定为 VRS/BCC（1）；
+- `rts_super`：超效率 SBM 的规模报酬，固定为 CRS/CCR（0）；
 - `sup`：是否计算超效率（`1` 计算，`0` 只算标准 SBM）；
 - `undesirable`：是否考虑非期望产出；
 - `excel_path`：输入数据文件路径。
@@ -165,15 +160,10 @@ res_sup = sbm_super_efficiency_with_undesirable(X, Yg, Yb, rts=0)
 print(res_sup["rho"])
 ```
 
-### `Code/sbm_super_efficiency.R`
+### `Code/sbm_super_efficiency.R`（Deprecated）
 
-提供与 Python 版本结构相近的 R 实现，用于：
-
-- 从 Excel 读取数据并构造矩阵；
-- 计算含/不含非期望产出的标准 SBM 与超效率 SBM；
-- 使用 `lpSolve` 求解线性规划，并输出效率值、松弛变量以及 λ 权重等结果。
-
-使用时可参考脚本中的示例调用，将结果写出到 CSV/Excel，再在其他软件中做可视化或回归分析。
+- 保留为与 Python 实现相对应的历史 R 版本，用于核对约束形式、目标函数和结果结构。
+- 不再作为推荐入口或维护对象，后续如需扩展或复现文献结果，请优先使用 Python 版本。
 
 ---
 
@@ -203,4 +193,3 @@ For English users:
   - `Code/sbm_super_efficiency.py` / `Code/sbm_super_efficiency.R` 源码；
   - `ModelRef/` 中收录的 Tone (2001, 2002) 等原始文献；
   对照约束条件和目标函数进行核查。
-

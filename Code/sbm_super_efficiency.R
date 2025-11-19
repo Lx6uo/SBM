@@ -1,4 +1,17 @@
-# R implementation of SBM (standard) and super-efficiency SBM with undesirable outputs
+# DEPRECATED R IMPLEMENTATION
+# ---------------------------
+# This R script implements SBM (standard) and super-efficiency SBM with
+# undesirable outputs, mirroring the formulations in Tone (2001, 2002).
+#
+# It is kept for reference only. The maintained and recommended
+# implementations are the Python scripts in:
+#   - Code/sbm_run.py              (script-style entry, reproduces Tone models)
+#   - Code/sbm_super_efficiency.py (modular Python API)
+#
+# The R version is no longer actively maintained. For new work, please use
+# the Python implementations above.
+
+# Historical R implementation of SBM (standard) and super-efficiency SBM with undesirable outputs
 # - Reads Excel file with header on second row, data from third row
 # - Uses lpSolve for linear programming
 # - Outputs CSV with rho_sup/rho_std, statuses, slacks and targets per DMU

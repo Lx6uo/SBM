@@ -223,11 +223,13 @@ def sup_un_sbmeff(x, y_g, y_b, cur, rts=0):
     return res
 
 def main():
-    # CFG
-    rts = 0  # 0为CRS（CCR）规模报酬；1为VRS(BCC)规模报酬可变
-    sup = 1  # 0为不带超效率；1为带超效率
-    undesirable = 1  # 1为存在非期望产出；0为不存在非期望产出
-    tol = 1e-3  # 判定标准效率≈1的容差
+    # CFG（与 Tone 2001/2002 及 Python 模块化实现保持一致）
+    # 标准SBM：VRS/BCC；超效率SBM：CRS/CCR
+    rts_standard = 1  # 0=CRS（CCR），1=VRS（BCC）——标准效率使用VRS
+    rts_super = 0     # 超效率使用CRS
+    sup = 1           # 0为不带超效率；1为带超效率
+    undesirable = 1   # 1为存在非期望产出；0为不存在非期望产出
+    tol = 1e-3        # 判定标准效率≈1的容差
     excel_path = r"d:\Desk\MyDeskFiles\Compe&Event\Feng\Data\SupeffSbmData(2).xlsx"
     data, nx, ny, nb, dmus = load_sheet(excel_path)
 
@@ -247,10 +249,10 @@ def main():
         y_b = y_b.T  # 非期望产出变量
     for i in range(dmus):
         if (undesirable == 1):
-            res = un_sbmeff(x=x, y_g=y_g, y_b=y_b, cur=i, rts=rts)
+            res = un_sbmeff(x=x, y_g=y_g, y_b=y_b, cur=i, rts=rts_standard)
             theta.append((dmuname[i], res.fun))
         else:
-            res = sbmeff(x=x, y_g=y_g, cur=i, rts=rts)
+            res = sbmeff(x=x, y_g=y_g, cur=i, rts=rts_standard)
             theta.append((dmuname[i], res.fun))
     # 不计算超效率就保存结果退出
     if (sup == 0):
@@ -274,9 +276,9 @@ def main():
     for i in range(dmus):
         is_eff = abs(theta[i][1] - 1.0) < tol
         if (undesirable == 1):
-            res = sup_un_sbmeff(x=x, y_g=y_g, y_b=y_b, cur=i, rts=rts)
+            res = sup_un_sbmeff(x=x, y_g=y_g, y_b=y_b, cur=i, rts=rts_super)
         else:
-            res = sup_sbmeff(x=x, y_g=y_g, cur=i, rts=rts)
+            res = sup_sbmeff(x=x, y_g=y_g, cur=i, rts=rts_super)
         if not is_eff:
             sup_vals.append(np.nan)
             sup_statuses.append('Skipped')
@@ -288,11 +290,11 @@ def main():
                 sup_vals.append(np.nan)
                 sup_statuses.append('Infeasible')
 
-    # 组装CCR结果表：标准效率+（有效DMU的）超效率+状态
+    # 组装结果表：标准VRS效率 +（有效DMU的）CRS超效率 + 状态
     dfres = pd.DataFrame({
         'dmu': dmuname,
-        '标准效率_CCR': [t[1] for t in theta],
-        '超效率_CCR': sup_vals,
+        '标准效率_VRS': [t[1] for t in theta],
+        '超效率_CRS': sup_vals,
         'sup_status': sup_statuses,
     })
     dfres.to_excel("effres.xlsx", sheet_name='eff', index=False)

@@ -1,3 +1,17 @@
+"""
+DEPRECATED MODULE
+-----------------
+This Python module implements SBM (standard) and super-efficiency SBM with
+undesirable outputs in a modular way, mirroring the formulations in
+Tone (2001, 2002) and the historical R implementation.
+
+It is kept for reference and formula cross-checking only.
+The canonical and maintained entry point for running the models is:
+    Code/sbm_run.py
+
+For new development and production use, prefer `sbm_run.py`.
+"""
+
 import json
 from typing import List, Dict, Tuple
 import pandas as pd
