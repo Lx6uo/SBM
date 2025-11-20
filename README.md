@@ -1,10 +1,8 @@
 # 超效率 SBM 模型实现与应用 / Super-Efficiency SBM Models
+> 此README大部分由 *ChatGPT-5.1* 完成，请注意自行辨别!!!
 
-> 中文介绍在前，后附英文简介；内容对齐，方便中英文读者共同使用本仓库。
-
----
-
-## 项目简介（ZH）
+> ( This README is writen by *ChatGPT-5.1*, Please consider it by yourself!!! )
+## 项目简介
 
 本项目实现了含/不含非期望产出的 SBM（Slack-Based Measure）和超效率 SBM 模型，用于评价地区或决策单元（DMU）的绿色发展效率。  
 代码以 Python 实现为主，并支持从 Excel 表中批量读取投入、期望产出与非期望产出指标。R 版本仅作为历史参考实现，已不再维护。
@@ -22,7 +20,7 @@
 
 ---
 
-## Project Overview (EN)
+## Project Overview 
 
 This repository implements standard and super-efficiency SBM (Slack-Based Measure) models,  
 with and without undesirable outputs, to evaluate the “green” efficiency of regions or DMUs.  
@@ -41,7 +39,7 @@ Typical use cases:
 
 ---
 
-## SBM 模型背景（ZH） / Model Background (EN)
+## SBM 模型背景 / Model Background
 
 **SBM 与 DEA 的关系（来源）**  
 - 数据包络分析（Data Envelopment Analysis, DEA）最早由 Charnes, Cooper 和 Rhodes（CCR 模型）提出，用于在多投入、多产出条件下评估决策单元（DMU）的相对效率。  
@@ -87,11 +85,11 @@ Typical use cases:
 - `Result/`  
   模型运行后的输出结果（如效率值、超效率值），为派生文件，可随时通过代码重新生成。
 - `ModelRef/`  
-  SBM 与超效率 SBM 相关的经典英文文献 PDF。
+  SBM 与超效率 SBM 相关的原始文献 PDF。
 - `Ref/`  
   与本课题相关的中文论文和参考资料。
 - `SPSSres/`  
-  使用 SPSS 得到的中间分析结果。
+  使用 **SPSSau** 得到的中间分析结果。
 
 > 说明：早期文档中出现的 `Data/`、`Model/` 等目录名，在当前仓库中已统一为 `InputData/`、`ModelRef/` 等，请以上述结构为准。
 
@@ -222,3 +220,7 @@ For English users:
   - `Code/sbm_super_efficiency.py` / `Code/sbm_super_efficiency.R` 源码；
   - `ModelRef/` 中收录的 Tone (2001, 2002) 等原始文献；
   对照约束条件和目标函数进行核查。
+
+## **参考与借鉴 / Referrence**
+- *https://zhuanlan.zhihu.com/p/639997348*
+- *https://zhuanlan.zhihu.com/p/632746686*
