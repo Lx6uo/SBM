@@ -14,6 +14,7 @@
 
 - Tone, K. (2001). *A slacks-based measure of efficiency in data envelopment analysis.*
 - Tone, K. (2002). *A slacks-based measure of super-efficiency in data envelopment analysis.*
+- Tone, K. (2004). *Dealing with undesirable outputs in DEA: a Slacks-Based Measure (SBM)approach*
 
 典型应用场景：
 
@@ -33,6 +34,7 @@ The implementation is based on:
 
 - Tone, K. (2001). *A slacks-based measure of efficiency in data envelopment analysis.*
 - Tone, K. (2002). *A slacks-based measure of super-efficiency in data envelopment analysis.*
+- Tone, K. (2004). *Dealing with undesirable outputs in DEA: a Slacks-Based Measure (SBM)approach*
 
 Typical use cases:
 
@@ -109,7 +111,7 @@ Typical use cases:
   - `scipy`
   - `openpyxl`（用于读取 `.xlsx` 文件）
 
-本仓库推荐使用 [uv](https://github.com/astral-sh/uv) 管理依赖和虚拟环境（根目录下已提供 `pyproject.toml` 与 `uv.lock`）。
+本仓库推荐使用 [uv]管理依赖和虚拟环境（根目录下已提供 `pyproject.toml` 与 `uv.lock`）。
 
 **使用 uv 初始化环境：**
 
