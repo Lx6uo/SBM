@@ -206,7 +206,6 @@ print(res_sup["rho"])
    - `uv run python Code/sbm_run.py`
 4. 在 `Result/`（或脚本配置的输出目录）中查看生成的效率结果表。
 
-For English users:
 
 1. Prepare an Excel file whose column names match those used in the scripts (inputs, good outputs, undesirable outputs).
 2. Run `uv sync` (or install dependencies via `pip`).
@@ -223,6 +222,20 @@ For English users:
   - `Code/sbm_super_efficiency.py` / `Code/sbm_super_efficiency.R` 源码；
   - `ModelRef/` 中收录的 Tone (2001, 2002) 等原始文献；
   对照约束条件和目标函数进行核查。
+
+---
+
+## 免责声明 / Disclaimer
+
+- 本仓库的代码、说明文档及生成的结果仅供学术研究和学习参考，不构成任何政策、投资、工程或合规决策依据，使用者需自行核实准确性与适用性。
+- 模型输出的可靠性高度依赖输入数据质量与建模假设，仓库维护者与贡献者不对因使用本仓库产生的任何直接或间接损失承担责任。
+- README 中引用的文献、报告及其他材料版权归原作者所有，引用仅为学术交流与研究便利，使用时请遵守相关版权与使用条款。
+- 若需在商业或正式场景使用，请进行充分的独立校验并自行承担全部责任。
+
+- The code, documentation, and generated results in this repository are for academic research and learning only; they are not intended as the basis for policy, investment, engineering, or compliance decisions. Verify accuracy and suitability yourself.
+- Output reliability depends on input data quality and modeling assumptions; maintainers and contributors accept no liability for any direct or indirect loss arising from use of this repository.
+- Papers, reports, and other referenced materials remain the property of their original authors; references are provided for scholarly communication and convenience only. Please follow the original copyright and usage terms.
+- For commercial or formal uses, conduct thorough independent validation and assume full responsibility for outcomes.
 
 ## **参考与借鉴 / Referrence**
 - *https://zhuanlan.zhihu.com/p/639997348*
